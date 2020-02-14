@@ -64,9 +64,13 @@ All taks require the parameter `Repository="<path to repo>"`
 [GitTag](#GitTag)
 
 ### <a name="GitAdd"></a>GitAdd
+
 ```<GitAdd Repository="c:\repos\myrepo" Path="version/version.txt" Force="true"/>```
+
 ```> git add --force -- "version/version.txt"```
+
 __Path__ (optional): path to files to be added. Defaults to __'.'__
+
 __Force__ (optional): allows adding otherwise ignored files. Defaults to __false__
 
 ### <a name="GitCheckout"></a>GitCheckout
