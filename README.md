@@ -20,12 +20,12 @@ To import an assembly, use the `<UsingTask>` element, specifying which class/tak
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <!--======================================================================-->
+  <UsingTask AssemblyFile="msbuild.git.dll" TaskName="msbuild.git.GitGetSHA" />
+  <!--======================================================================-->
+  
   <Target Name="Build">
-    
-    <!--======================================================================-->
-    <UsingTask AssemblyFile="msbuild.git.dll" TaskName="msbuild.git.GitGetSHA" />
-    <!--======================================================================-->
-    
     <Message Text="This is my build" />
   </Target>
 </Project>
@@ -35,9 +35,10 @@ Then, just use the imported class/task
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <UsingTask AssemblyFile="msbuild.git.dll" TaskName="msbuild.git.GitGetSHA" />
+  
   <Target Name="Build">
-    
-    <UsingTask AssemblyFile="msbuild.git.dll" TaskName="msbuild.git.GitGetSHA" />
     
     <!--======================================================================-->
     <GitGetSHA Repository="c:\repos\myrepo" Branch="origin/master">
@@ -67,9 +68,13 @@ All taks require the parameter `Repository="<path to repo>"`
 
 [git add](https://git-scm.com/docs/git-add)
 
-```<GitAdd Repository="c:\repos\myrepo" Path="path-to/file.txt" Force="true"/>```
+```xml
+<GitAdd Repository="c:\repos\myrepo" Path="path-to/file.txt" Force="true"/>
+```
 
-```> git add --force -- "path-to/file.txt"```
+```bash
+> git add --force -- "path-to/file.txt"
+```
 
 __Path__ (optional): path to files to be added. See [pathspec](https://git-scm.com/docs/git-add#Documentation/git-add.txt-ltpathspecgt82308203). Default: __'.'__
 
@@ -80,9 +85,13 @@ __Force__ (optional): allows adding otherwise ignored files. See [--force](https
 
 [git checkout](https://git-scm.com/docs/git-checkout)
 
-```<GitCheckout Repository="c:\repos\myrepo" Branch="master" Track="true" Quiet="true" Force="true"/>```
+```xml
+<GitCheckout Repository="c:\repos\myrepo" Branch="master" Track="true" Quiet="true" Force="true"/>
+```
 
-```> git checkout --force --quiet --track "master"```
+```bash
+> git checkout --force --quiet --track "master"
+```
 
 __Branch__ (required): what to checkout. Can be a commit or a branch name. See [branch](https://git-scm.com/docs/git-checkout#Documentation/git-checkout.txt-ltbranchgt)
 
@@ -97,9 +106,14 @@ __Track__ (optional): When creating a new branch, set up "upstream" configuratio
 
 [git clean](https://git-scm.com/docs/git-clean)
 
-```<GitClean Repository="c:\repos\myrepo" Quiet="true" Force="true" UntrackedDirectories="true" EvenIgnoredEntries="true" Exclude="*.txt"/>```
+```xml
+<GitClean Repository="c:\repos\myrepo" Quiet="true" Force="true"
+          UntrackedDirectories="true" EvenIgnoredEntries="true" Exclude="*.txt"/>
+```
 
-```> git clean --quiet --force -d -x --exclude="*.txt*"```
+```bash
+> git clean --quiet --force -d -x --exclude="*.txt*"
+```
 
 __Quiet__ (optional): be quiet, only report errors, but not the files that are successfully removed. See [--quiet](https://git-scm.com/docs/git-clean#Documentation/git-clean.txt---quiet). Default: __false__
 
@@ -118,9 +132,13 @@ __Exclude__ (optional): do not clean these files. See [--exclude](https://git-sc
 
 [git commit](https://git-scm.com/docs/git-commit)
 
-```<GitCommit Repository="c:\repos\myrepo" Message="your commit message"/>```
+```xml
+<GitCommit Repository="c:\repos\myrepo" Message="your commit message"/>
+```
 
-```> git commit --message "your commit messsage"```
+```bash
+> git commit --message "your commit messsage"
+```
 
 __Message__ (optional): commit message. See [--message](https://git-scm.com/docs/git-commit#Documentation/git-commit.txt---messageltmsggt). Default: __"Auto-commit from msbuild"__
 
@@ -129,13 +147,15 @@ __Message__ (optional): commit message. See [--message](https://git-scm.com/docs
 
 [git rev-parse](https://git-scm.com/docs/git-rev-parse)
 
-```
+```xml
 <GitGetSHA Repository="c:\repos\myrepo" Branch="master">
   <Output TaskParameter="SHA" PropertyName="MyProperty" />
 </GitGetSHA>
 ```
 
-```> git rev-parse "master"```
+```bash
+> git rev-parse "master"
+```
 
 __Branch__ (optional): name of branch to retrieve the SHA hash. Default: __"HEAD"__
 
@@ -146,9 +166,14 @@ __SHA__ (output): receives the sha1 hash of the selected branch
 
 [git pull]()
 
-```<GitPull Repository="c:\repos\myrepo" Quiet="true" Force="true" Verbose="true" Rebase="true" Origin="myserver"/>```
+```xml
+<GitPull Repository="c:\repos\myrepo" Quiet="true" Force="true"
+         Verbose="true" Rebase="true" Origin="myserver"/>
+```
 
-```> git pull --quiet --force --verbose --rebase "myserver"```
+```bash
+> git pull --quiet --force --verbose --rebase "myserver"
+```
 
 __Quiet__ (optional): See [--quiet](https://git-scm.com/docs/git-pull#Documentation/git-pull.txt---quiet). Default: __false__
 
@@ -165,9 +190,13 @@ __Origin__ (optional): server to fetch/pull from. See [repository](https://git-s
 
 [git push](https://git-scm.com/docs/git-push)
 
-```<GitPush Repository="c:\repos\myrepo" Tags="true" Target="myserver" Branch="mybranch"/>```
+```xml
+<GitPush Repository="c:\repos\myrepo" Tags="true" Target="myserver" Branch="mybranch"/>
+```
 
-```> git push --tags "myserver" "mybranch"```
+```bash
+> git push --tags "myserver" "mybranch"
+```
 
 __Tags__ (optional): push tags. See [--tags](https://git-scm.com/docs/git-push#Documentation/git-push.txt---tags). Default: __false__
 
@@ -180,9 +209,13 @@ __Branch__ (optional): branch to push. Default: __"HEAD"__
 
 [git reset](https://git-scm.com/docs/git-reset)
 
-```<GitReset Repository="c:\repos\myrepo" Quiet="true" Mode="hard" Commit="origin/master"/>```
+```xml
+<GitReset Repository="c:\repos\myrepo" Quiet="true" Mode="hard" Commit="origin/master"/>
+```
 
-```> git reset --hard --quiet "origin/master"```
+```bash
+> git reset --hard --quiet "origin/master"
+```
 
 __Quiet__ (optional): be quiet, only report errors. See [--quiet](https://git-scm.com/docs/git-reset#Documentation/git-reset.txt---quiet). Default: __true__
 
@@ -195,9 +228,14 @@ __Commit__ (optional): the commit to reset to. Not used by default.
 
 [git tag](https://git-scm.com/docs/git-tag)
 
-```<GitTag Repository="c:\repos\myrepo" Force="true" Delete="false" Annotate="true" Message="my commit message" Commit="c922c83" Tag="my_tag_name"/>```
+```xml
+<GitTag Repository="c:\repos\myrepo" Force="true" Delete="false" Annotate="true"
+        Message="my commit message" Commit="c922c83" Tag="my_tag_name"/>
+```
 
-```> git tag --force --annotate --message "my commit message" "my_tag_name" "c922c83"```
+```bash
+> git tag --force --annotate --message "my commit message" "my_tag_name" "c922c83"
+```
 
 __Force__ (optional): replace an existing tag with the given name (instead of failing). See [--force](https://git-scm.com/docs/git-tag#Documentation/git-tag.txt---force). Default: __false__
 
