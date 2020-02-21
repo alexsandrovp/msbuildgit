@@ -52,6 +52,7 @@ Then, just use the imported class/task
 ```
 
 All taks require the parameter `Repository="<path to repo>"`
+
 All tasks accept an optional attribute `GitHome="<path to git>"`
 
 ## Available tasks
