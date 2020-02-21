@@ -5,7 +5,7 @@
         /// <summary>
         /// Optional commit message
         /// </summary>
-        public string Message { get; set; } = "Auto-commit from build job";
+        public string Message { get; set; } = "Auto-commit from msbuild";
 
         protected override string GenerateCommandLineCommands()
         {

@@ -69,7 +69,7 @@ namespace msbuild.git
                 cmd += " --annotate";
                 if (Message.Length == 0)
                 {
-                    Message = "Tag added automatically by the build process";
+                    Message = "Tag added automatically by msbuild";
                     cmd += string.Format(" --message \"{0}\"", Message);
                 }
             }

@@ -11,7 +11,7 @@ namespace msbuild.git
         public string Branch { get; set; } = "HEAD";
 
         [Output]
-        public string SHA1 { get; set; } = string.Empty;
+        public string SHA { get; set; } = string.Empty;
 
         protected override string GenerateCommandLineCommands()
         {
@@ -23,7 +23,7 @@ namespace msbuild.git
             if (!string.IsNullOrWhiteSpace(singleLine))
             {
                 base.LogEventsFromTextOutput(singleLine, messageImportance);
-                SHA1 = singleLine;
+                SHA = singleLine;
             }
         }
     }
