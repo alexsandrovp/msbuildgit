@@ -47,7 +47,7 @@ namespace msbuild.git
             }
 
             Repository = repo.FullName;
-            Log.LogMessage(MessageImportance.High, "Running git on repo: " + Repository);
+            Log.LogMessage(MessageImportance.Low, "Running git on repo: " + Repository);
 
             return true;
         }
@@ -59,7 +59,7 @@ namespace msbuild.git
         {
             //remove sensitive information (passwords) from the command print (tool call)
             message = urlpwdRgx.Replace(message, urlpwdReplace);
-            Log.LogMessage(MessageImportance.High, ">> " + message);
+            Log.LogMessage(MessageImportance.High, "{0} >> {1}", Repository, message);
         }
 
         protected override void LogEventsFromTextOutput(string singleLine, MessageImportance messageImportance)

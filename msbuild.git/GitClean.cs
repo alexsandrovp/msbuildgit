@@ -26,7 +26,7 @@ namespace msbuild.git
         /// --quiet
         /// Be quiet, only report errors, but not the files that are successfully removed.
         /// </summary>
-        public bool Quiet { get; set; } = true;
+        public bool Quiet { get; set; } = false;
 
         /// <summary>
         /// -x
