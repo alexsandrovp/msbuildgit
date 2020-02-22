@@ -55,6 +55,29 @@ All taks require the parameter `Repository="<path to repo>"`
 
 All tasks accept an optional attribute `GitHome="<path to git>"`
 
+An example of a build project would look like this:
+
+```xml
+<Target Name="Build">
+  
+  <GitClean Repository="$(Repo)" />
+  <GitReset Repository="$(Repo)" />
+  <GitCheckout Repository="$(Repo)" Force="true" Branch="master" />
+  <GitPull Repository="$(Repo)" />
+  
+  <GitGetSHA Repository="$(Repo)">
+    <Output TaskParameter="SHA" PropertyName="Revision" />
+  </GitGetSHA>
+  
+  <Message Text="This is my build revision: $(Revision)" />
+  <!--actually build something, then if it succeeds...-->
+  
+  <GitTag Repository="$(Repo)" Commit="$(Revision)" Tag="MyBuildId" />
+  <GitPush Repository="$(Repo)" Tags="true" />
+
+</Target>
+```
+
 ## Available tasks
 
 [GitAdd](#GitAdd)
